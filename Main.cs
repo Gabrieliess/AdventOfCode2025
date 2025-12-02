@@ -6,6 +6,7 @@ public partial class LaunchPad
 {
     public static void Main(string[] args)
     {
-        Console.Write(MyProgram.DayOne());
+        var result = MyProgram.SolveDayOne();
+        Console.WriteLine(result);
     }
 }

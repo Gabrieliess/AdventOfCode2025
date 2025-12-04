@@ -2,13 +2,57 @@
 
 partial class MySolutions
 {
-    public static int SolveDayTwo()
+    public static long SolveDayTwo()
     {
-        return 0;
+        long sumOfBadIDs = 0;
+
+        using (StreamReader sr = new StreamReader("Src/DayTwo.txt"))
+        {
+            var myIDs = new HashSet<string>(sr.ReadToEnd().Split(','));
+
+            foreach (var myIdRange in myIDs)
+            {
+                var myRealId = myIdRange.Split('-');
+                long.TryParse(myRealId[0], out long x);
+                long.TryParse(myRealId[1], out long y);
+
+                for (long i = x; i < y; i++)
+                {
+                    string myNumber = i.ToString();
+                    string half = myNumber.Substring(0, myNumber.Length / 2);
+                    string theOtherHalf = myNumber.Substring(
+                        myNumber.Length / 2,
+                        myNumber.Length - myNumber.Length / 2
+                    );
+
+                    if (half == theOtherHalf)
+                    {
+                        sumOfBadIDs += i;
+                    }
+                }
+            }
+        }
+
+        return sumOfBadIDs; // 19391221415 too low
     }
-    
+
     public static int SolveDayTwoPlus()
     {
         return 1;
+    }
+}
+
+public class Reverser // dont ask
+{
+    public string Reverse(string text)
+    {
+        char[] cArray = text.ToCharArray();
+        string reverse = String.Empty;
+        for (int i = cArray.Length - 1; i > -1; i--)
+        {
+            reverse += cArray[i];
+        }
+
+        return reverse;
     }
 }

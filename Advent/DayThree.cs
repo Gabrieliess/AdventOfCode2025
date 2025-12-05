@@ -2,16 +2,16 @@
 
 partial class MySolutions
 {
-    public static long? SolveDayThree()
+    public static long SolveDayThree()
     {
-        long? outputPower = 0;
+        long outputPower = 0;
 
         using (StreamReader sr = new StreamReader("Src/DayThree.txt"))
         {
             string? bank;
             while ((bank = sr.ReadLine()) != null)
             {
-                int? first = 0;
+                int first = 0;
                 int second = 0;
                 int index = 0;
 
@@ -36,8 +36,39 @@ partial class MySolutions
         return outputPower;
     }
 
-    public static int SolveDayThreePlus()
+    public static long SolveDayThreePlus()
     {
-        return 1;
+        string massiveOutputPower = "";
+
+        using (StreamReader sr = new StreamReader("Src/DayThree.txt"))
+        {
+            string? bank;
+
+            while ((bank = sr.ReadLine()) != null)
+            {
+                char[] bankArr = bank.ToCharArray();
+                int indexFromRear = 12;
+                int index = -1;
+                while (indexFromRear > 0)
+                {
+                    int largest = 0;
+                    for (int i = 0; i < bankArr.Length - indexFromRear; i++)
+                    {
+                        int.TryParse(bankArr[i].ToString(), out int current);
+                        if (current > largest)
+                        {
+                            largest = current;
+                            index = i;
+                        }
+                    }
+                    massiveOutputPower += largest.ToString();
+                    indexFromRear--;
+                    bankArr[index] = '0';
+                }
+            }
+        }
+
+        long.TryParse(massiveOutputPower, out long massiveOutputPowerNum);
+        return massiveOutputPowerNum;
     }
 }

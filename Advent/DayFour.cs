@@ -9,9 +9,9 @@ static partial class MySolutions
         //   .........
         //   .@@.@.@@.
         //   .@@@@@@@.
-        //   ...@.@... example
-        //   .@@.@.@..
-        //   .........
+        //   ...@.@...      example
+        //   .@@.@.@..      hold scroll wheel for selecting 
+        //   .........      multiple lines to write the dots
 
         int freeRows = 0;
         using StreamReader sr = new StreamReader("Src/DayFour.txt");

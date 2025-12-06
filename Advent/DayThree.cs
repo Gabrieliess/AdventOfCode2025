@@ -1,6 +1,9 @@
-﻿namespace AdventOfCode2025.Advent;
+﻿using System.Runtime.InteropServices;
+using Microsoft.VisualBasic.CompilerServices;
 
-partial class MySolutions
+namespace AdventOfCode2025.Advent;
+
+static partial class MySolutions
 {
     public static long SolveDayThree()
     {
@@ -36,39 +39,37 @@ partial class MySolutions
         return outputPower;
     }
 
-    public static long SolveDayThreePlus()
+    public static double SolveDayThreePlus()
     {
-        string massiveOutputPower = "";
-
-        using (StreamReader sr = new StreamReader("Src/DayThree.txt"))
+        using StreamReader sr = new StreamReader("Src/DayThree.txt");
+        double sum = 0;
+        while (sr.ReadLine() is { } bank)
         {
-            string? bank;
+            char[] bankArr = bank.ToCharArray();
+            int selectedBatteryIndex = 0;
+            double sequence = 0;
 
-            while ((bank = sr.ReadLine()) != null)
+            for (int i = 12; i > 0; i--) // getting the 12 batteries
             {
-                char[] bankArr = bank.ToCharArray();
-                int indexFromRear = 12;
-                int index = -1;
-                while (indexFromRear > 0)
+                double largest = 0;
+                for (int j = selectedBatteryIndex; j < bankArr.Length - i + 1; j++)
                 {
-                    int largest = 0;
-                    for (int i = 0; i < bankArr.Length - indexFromRear; i++)
+                    int.TryParse(bankArr[j].ToString(), out int current);
+                    if (current > largest)
                     {
-                        int.TryParse(bankArr[i].ToString(), out int current);
-                        if (current > largest)
-                        {
-                            largest = current;
-                            index = i;
-                        }
+                        largest = current;
+                        selectedBatteryIndex = j;
                     }
-                    massiveOutputPower += largest.ToString();
-                    indexFromRear--;
-                    bankArr[index] = '0';
                 }
+
+                sequence += largest * Math.Pow(10, i);
+                bankArr[selectedBatteryIndex] = '_';
             }
+
+            Console.WriteLine(string.Join("", bankArr) + " -> " + sequence / 10);
+            sum += sequence / 10;
         }
 
-        long.TryParse(massiveOutputPower, out long massiveOutputPowerNum);
-        return massiveOutputPowerNum;
+        return sum;
     }
 }

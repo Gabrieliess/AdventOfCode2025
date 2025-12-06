@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode2025.Advent;
 
-partial class MySolutions
+static partial class MySolutions
 {
     public static long SolveDayTwo()
     {
